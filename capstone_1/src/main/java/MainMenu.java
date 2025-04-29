@@ -4,6 +4,7 @@ public class MainMenu {
     public static void main(String[] args) {
         TransactionService transactionService = new TransactionService();
         Scanner scanner = new Scanner(System.in);
+        LedgerScreen ledgerScreen = new LedgerScreen();
         boolean onHomePage = true;
         while (onHomePage) {
             System.out.println("You on the HOME SCREEN");
@@ -50,12 +51,13 @@ public class MainMenu {
                     transactionService.saveTransaction(payment);
                     System.out.println("Your payment saved successfully");
                 }
-                case "L" -> System.out.println("Ledger");
+                case "L" ->  {
+                    ledgerScreen.showLedgerScreen();
+                }
                 case "X" -> {
                     System.out.println("Exit");
                     System.out.println("Exiting the app");
                     onHomePage = false;
-
                 }
 
                 default -> System.out.println("Invalid option");

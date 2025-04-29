@@ -17,13 +17,24 @@ public class LedgerScreen {
            System.out.println("H) Go Home");
 
           String  userChoice = scanner.nextLine().trim().toUpperCase();
-        List<Transaction> trantactions = transactionService.readTransactions();
+        List<Transaction> transactions = transactionService.readTransactions();
 
           switch (userChoice) {
               case "A" -> {
-                  System.out.println("Showing all transactions");
-                  trantactions.forEach(t -> System.out.println(t));
+                  System.out.println("Showing all transactions....");
+                  transactions.forEach(t -> System.out.println(t));
               }
+              case "D" -> {
+                  System.out.println("Showing only Deposits ....");
+                  for ( Transaction transaction: transactions ) {
+                      if(transaction.getAmount() > 0 ) {
+                          System.out.println(transaction);
+                      }
+
+                  }
+              }
+
+
           }
 
        }
