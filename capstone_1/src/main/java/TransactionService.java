@@ -24,7 +24,6 @@ public class TransactionService {
             // Write the line to the file
             printWriter.println(transactionLine);
 
-            // Always close the writer to save changes and free resources
             printWriter.close();
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
@@ -33,7 +32,7 @@ public class TransactionService {
 
 
    public List<Transaction> readTransactions () {
-// List<Transaction> readTransactions = new ArrayList<>(); — мы создаём пустой список транзакций, чтобы заполнять его, когда будем читать данные из файла.
+
 
      List<Transaction>  readTransactions = new ArrayList<>();
      try {
