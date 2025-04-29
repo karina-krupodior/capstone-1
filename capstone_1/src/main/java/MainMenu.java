@@ -49,8 +49,6 @@ public class MainMenu {
                     Transaction payment = new Transaction(date, time, description, vendor, amount);
                     transactionService.saveTransaction(payment);
                     System.out.println("Your payment saved successfully");
-
-
                 }
                 case "L" -> System.out.println("Ledger");
                 case "X" -> {
