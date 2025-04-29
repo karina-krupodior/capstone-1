@@ -1,9 +1,8 @@
 // Class responsible for saving and reading transactions from the "transactions.csv" file.
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransactionService {
     private static final String FILE_NAME = "transactions.csv";
@@ -20,7 +19,7 @@ public class TransactionService {
             PrintWriter printWriter = new PrintWriter(writerWithBuffer);
 
             // Prepare the line to write to the file
-            String transactionLine = "my first new line1";
+            String transactionLine =  transaction.getDate() + '|' + transaction.getTime() + "|" + transaction.getDescription() + "|" + transaction.getVendor() + "|" + transaction.getAmount();
 
             // Write the line to the file
             printWriter.println(transactionLine);
@@ -31,4 +30,27 @@ public class TransactionService {
             System.out.println("Error writing to file: " + e.getMessage());
         }
     }
+
+
+   public List<Transaction> readTransactions () {
+// List<Transaction> readTransactions = new ArrayList<>(); — мы создаём пустой список транзакций, чтобы заполнять его, когда будем читать данные из файла.
+
+     List<Transaction>  readTransactions = new ArrayList<>();
+     try {
+         FileReader fileReader = new FileReader(FILE_NAME);
+         BufferedReader bufferedReader = new BufferedReader(fileReader);
+         String line;
+         while((line = bufferedReader.readLine()) != null) {
+             String [] stringParts = line.split("\\|");
+             if(stringParts.length == 5) {
+                 readTransactions.add(new Transaction(stringParts[0],stringParts[1],stringParts[2],stringParts[3],Double.parseDouble(stringParts[4])));
+             }
+
+         }
+     }catch(IOException e) {
+         System.out.println("Error reading from file: " + e.getMessage());
+     }
+       return readTransactions;
+    }
 }
+
