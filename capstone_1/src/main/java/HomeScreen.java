@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
-public class MainMenu {
-    public static void main(String[] args) {
+public class HomeScreen {
+    public void showHomeScreen() {
         TransactionService transactionService = new TransactionService();
         Scanner scanner = new Scanner(System.in);
         LedgerScreen ledgerScreen = new LedgerScreen();
@@ -12,7 +12,7 @@ public class MainMenu {
             System.out.println("Enter D to Add Deposit");
             System.out.println("Enter P to  Make Payment (Debit)");
             System.out.println("Enter L to  Ledger(to see tour info)");
-            System.out.println("enter X to Exit");
+            System.out.println("Enter X to Exit");
 
             String userChoice = scanner.nextLine().trim().toUpperCase();
 
@@ -51,9 +51,8 @@ public class MainMenu {
                     transactionService.saveTransaction(payment);
                     System.out.println("Your payment saved successfully");
                 }
-                case "L" ->  {
-                    ledgerScreen.showLedgerScreen();
-                }
+                case "L" -> ledgerScreen.showLedgerScreen();
+
                 case "X" -> {
                     System.out.println("Exit");
                     System.out.println("Exiting the app");
@@ -67,3 +66,4 @@ public class MainMenu {
 
     }
 }
+

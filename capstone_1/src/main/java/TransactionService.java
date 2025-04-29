@@ -33,7 +33,6 @@ public class TransactionService {
 
    public List<Transaction> readTransactions () {
 
-
      List<Transaction>  readTransactions = new ArrayList<>();
      try {
          FileReader fileReader = new FileReader(FILE_NAME);
@@ -44,7 +43,6 @@ public class TransactionService {
              if(stringParts.length == 5) {
                  readTransactions.add(new Transaction(stringParts[0],stringParts[1],stringParts[2],stringParts[3],Double.parseDouble(stringParts[4])));
              }
-
          }
      }catch(IOException e) {
          System.out.println("Error reading from file: " + e.getMessage());

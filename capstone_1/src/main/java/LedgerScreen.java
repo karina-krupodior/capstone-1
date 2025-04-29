@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class LedgerScreen {
     Scanner scanner = new Scanner(System.in);
     TransactionService transactionService = new TransactionService();
+    ReportsScreen reportsScreen = new ReportsScreen();
 
     public void showLedgerScreen() {
         boolean onLedgerScreen = true;
@@ -43,16 +44,14 @@ public class LedgerScreen {
                         }
                     }
                 }
-                case "R" -> {
-                    System.out.println("Reports feature coming soon...");
-                }
+                case "R" -> reportsScreen.showReportsScreen();
+
                 case "H" -> {
                     System.out.println("Going Home...");
                     onLedgerScreen = false;
                 }
-                default -> {
-                    System.out.println("Invalid option. Please try again.");
-                }
+                default -> System.out.println("Invalid option. Please try again.");
+
             }
         }
     }
