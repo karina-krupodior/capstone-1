@@ -1,3 +1,8 @@
+package ui;
+
+import model.Transaction;
+import service.TransactionService;
+
 import java.util.List;
 import java.util.Scanner;
 

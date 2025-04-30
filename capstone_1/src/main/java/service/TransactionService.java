@@ -1,4 +1,6 @@
-// Class responsible for saving and reading transactions from the "transactions.csv" file.
+package service;// Class responsible for saving and reading transactions from the "transactions.csv" file.
+
+import model.Transaction;
 
 import java.io.*;
 import java.util.ArrayList;
