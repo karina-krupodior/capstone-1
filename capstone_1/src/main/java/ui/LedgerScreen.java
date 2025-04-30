@@ -8,8 +8,12 @@ import java.util.Scanner;
 
 public class LedgerScreen {
     Scanner scanner = new Scanner(System.in);
-    TransactionService transactionService = new TransactionService();
-    ReportsScreen reportsScreen = new ReportsScreen();
+
+    private final TransactionService transactionService;
+
+    public LedgerScreen(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     public void showLedgerScreen() {
         boolean onLedgerScreen = true;
@@ -25,6 +29,7 @@ public class LedgerScreen {
 
             String userChoice = scanner.nextLine().trim().toUpperCase();
             List<Transaction> transactions = transactionService.readTransactions();
+            ReportsScreen reportsScreen = new ReportsScreen(transactions);
 
             switch (userChoice) {
                 case "A" -> {

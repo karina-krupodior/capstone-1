@@ -6,10 +6,17 @@ import service.TransactionService;
 import java.util.Scanner;
 
 public class HomeScreen {
+
+    private final TransactionService transactionService;
+
+    public HomeScreen(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
+
     public void showHomeScreen() {
-        TransactionService transactionService = new TransactionService();
+
+        LedgerScreen ledgerScreen = new LedgerScreen(transactionService);
         Scanner scanner = new Scanner(System.in);
-        LedgerScreen ledgerScreen = new LedgerScreen();
         boolean onHomePage = true;
         while (onHomePage) {
             System.out.println("You on the HOME SCREEN");

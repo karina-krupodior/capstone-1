@@ -1,60 +1,93 @@
 package ui;
 
-import service.TransactionService;
-
-import java.util.Scanner;
-import java.time.format.DateTimeFormatter;
+import model.Transaction;
+import service.ReportService;
+import java.util.*;
 
 public class ReportsScreen {
+    private final Scanner scanner;
+    private final ReportService reportService;
 
-    Scanner scanner = new Scanner(System.in);
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private final TransactionService transactionService = new TransactionService();
+    public ReportsScreen(List<Transaction> transactions) {
+        this.scanner = new Scanner(System.in);
+        this.reportService = new ReportService(transactions);
+    }
 
-    public void showReportsScreen() {
-        boolean onReportsScreen = true;
-        while (onReportsScreen) {
-            displayReportMenu();
-            String userOption = scanner.nextLine();
+    public void showReportsScreen () {
+        boolean onReportsPage = true;
+        while (onReportsPage) {
+            printMenu();
+            String choice = scanner.nextLine().trim();
 
-            switch (userOption) {
-                case "1" -> {
-
-                }
-                case "2" -> {
-
-                }
-                case "3" -> {
-
-                }
-                case "4" -> {
-
-                }
-                case "5" -> {
-
-                }
-                case "0" -> {
-                    System.out.println("Going back to the previous screen...");
-                    onReportsScreen = false;
-                }
-                default -> {
-                    System.out.println("Invalid input. Please try again.");
-                }
+            switch (choice) {
+                case "1" -> displayReport("Month To Date", reportService.getMonthToDate());
+                case "2" -> displayReport("Previous Month", reportService.getPreviousMonth());
+                case "3" -> displayReport("Year To Date", reportService.getYearToDate());
+                case "4" -> displayReport("Previous Year", reportService.getPreviousYear());
+                case "5" -> searchByVendor();
+                case "0" -> { onReportsPage = false; }
+                default -> System.out.println("Invalid option. Please try again.");
             }
         }
     }
 
-
-    private void displayReportMenu () {
-        System.out.println("You are on the Reports Screen");
-        System.out.println("Choose an option:");
-        System.out.println("Enter 1 to see reports for Month To Date");
-        System.out.println("Enter 2 to see reports for Previous Month");
-        System.out.println("Enter 3 to see reports for Year To Date");
-        System.out.println("Enter 4 to see reports for Previous Year");
-        System.out.println("Enter 5 to search reports by Vendor");
-        System.out.println("Enter 0 to go back to the previous screen");
+    private void printMenu() {
+        System.out.println("\n=== REPORTS MENU ===");
+        System.out.println("1) Month To Date");
+        System.out.println("2) Previous Month");
+        System.out.println("3) Year To Date");
+        System.out.println("4) Previous Year");
+        System.out.println("5) Search by Vendor");
+        System.out.println("0) Back to Main Menu");
+        System.out.print("Choose an option: ");
     }
 
+    private void displayReport(String title, List<Transaction> transactions) {
+        // Define column widths
+        final int DATE_WIDTH = 12;
+        final int TIME_WIDTH = 10;
+        final int DESC_WIDTH = 25;
+        final int VENDOR_WIDTH = 20;
+        final int AMOUNT_WIDTH = 12;
+
+        // Print report header
+        System.out.printf("\n=== %s (%d transactions) ===\n", title, transactions.size());
+
+        if (transactions.isEmpty()) {
+            System.out.println("No transactions found.");
+            return;
         }
 
+        // Print table header
+        String header = String.format("%-" + DATE_WIDTH + "s %-" + TIME_WIDTH + "s %-" +
+                        DESC_WIDTH + "s %-" + VENDOR_WIDTH + "s %" + AMOUNT_WIDTH + "s",
+                "Date", "Time", "Description", "Vendor", "Amount");
+        String divider = "-".repeat(header.length());
+
+        System.out.println(divider);
+        System.out.println(header);
+        System.out.println(divider);
+
+        // Print transactions
+        for (Transaction t : transactions) {
+            System.out.printf("%-" + DATE_WIDTH + "s %-" + TIME_WIDTH + "s %-" +
+                            DESC_WIDTH + "s %-" + VENDOR_WIDTH + "s %," + AMOUNT_WIDTH + ".2f\n",
+                    t.getDate(),
+                    t.getTime(),
+                    t.getDescription(),
+                    t.getVendor(),
+                    t.getAmount());
+        }
+
+    }
+
+
+    private void searchByVendor() {
+        System.out.print("\nEnter vendor name: ");
+        String vendor = scanner.nextLine().trim();
+        List<Transaction> results = reportService.getByVendor(vendor);
+        displayReport("Vendor: " + vendor, results);
+    }
+
+
+}
