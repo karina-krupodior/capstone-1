@@ -1,27 +1,38 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Transaction {
     // date       |time    |description       |vendor|amount
     // 2023-04-15 |10:13:25|ergonomic keyboard|Amazon|-89.50
-    private String date;
-    private String time;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_TIME;
+    private LocalDate date;
+    private LocalTime time;
     private String description;
     private String vendor;
     private double amount;
 
     public Transaction(String date, String time, String description, String vendor, double amount) {
-        this.date = date;
-        this.time = time;
+
+        setDate(date);
+        setTime(time);
         this.description = description;
         this.vendor = vendor;
         this.amount = amount;
     }
 
+
     public String getDate() {
-        return this.date;
+        return this.date.toString();
     }
 
     public String getTime() {
-        return this.time;
+        return this.time.toString();
     }
+
+
 
     public String getDescription() {
         return this.description;
@@ -36,11 +47,19 @@ public class Transaction {
     }
 
     public void setDate(String date) {
-        this.date = date;
+        try {
+            this.date = LocalDate.parse(date, DATE_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format. Please use YYYY-MM-DD");
+        }
     }
 
     public void setTime(String time) {
-        this.time = time;
+        try {
+            this.time = LocalTime.parse(time, TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid time format. Please use HH:MM:SS");
+        }
     }
 
     public void setDescription(String description) {
@@ -59,7 +78,20 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return date + " " + time + " | " + description + " | " + vendor + " | " + amount;
+        return String.format("%s | %s | %s | %s | %,.2f",
+                getDate(),
+                getTime(),
+                description,
+                vendor,
+                amount);
+    }
+    public String toCSV() {
+        return String.join("|",
+                getDate(),
+                getTime(),
+                description,
+                vendor,
+                String.valueOf(amount));
     }
 
 
