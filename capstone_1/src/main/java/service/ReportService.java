@@ -5,8 +5,6 @@ import java.util.*;
 
 public class ReportService {
 
-
-
     private final List<Transaction> transactions;
 
     public ReportService(List<Transaction> transactions) {

@@ -32,13 +32,13 @@ public class ReportsScreen {
     }
 
     private void printMenu() {
-        System.out.println("\n=== REPORTS MENU ===");
+        System.out.println("\n=== YOU ARE ON REPORTS MENU ===");
         System.out.println("1) Month To Date");
         System.out.println("2) Previous Month");
         System.out.println("3) Year To Date");
         System.out.println("4) Previous Year");
         System.out.println("5) Search by Vendor");
-        System.out.println("0) Back to Main Menu");
+        System.out.println("0) Back");
         System.out.print("Choose an option: ");
     }
 

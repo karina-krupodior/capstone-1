@@ -19,12 +19,12 @@ public class HomeScreen {
         Scanner scanner = new Scanner(System.in);
         boolean onHomePage = true;
         while (onHomePage) {
-            System.out.println("You on the HOME SCREEN");
-            System.out.println("Chose an option");
+            System.out.println("\n=== YOU ARE ON HOME MENU ===");
             System.out.println("Enter D to Add Deposit");
-            System.out.println("Enter P to  Make Payment (Debit)");
-            System.out.println("Enter L to  Ledger(to see tour info)");
+            System.out.println("Enter P to Make Payment (Debit)");
+            System.out.println("Enter L to Ledger");
             System.out.println("Enter X to Exit");
+            System.out.print("Choose an option: ");
 
             String userChoice = scanner.nextLine().trim().toUpperCase();
 

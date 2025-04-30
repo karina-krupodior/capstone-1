@@ -3,15 +3,16 @@ package ui;
 import model.Transaction;
 import service.TransactionService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class LedgerScreen {
-    Scanner scanner = new Scanner(System.in);
-
+    private final Scanner scanner;
     private final TransactionService transactionService;
 
     public LedgerScreen(TransactionService transactionService) {
+        this.scanner = new Scanner(System.in);
         this.transactionService = transactionService;
     }
 
@@ -19,50 +20,102 @@ public class LedgerScreen {
         boolean onLedgerScreen = true;
 
         while (onLedgerScreen) {
-            System.out.println("\nYou are on Ledger Screen");
-            System.out.println("Select an option:");
-            System.out.println("A) Show All Transactions");
-            System.out.println("D) Show only Deposits");
-            System.out.println("P) Show only Payments");
-            System.out.println("R) Show Reports");
-            System.out.println("H) Go Home");
-
+            printMenu();
             String userChoice = scanner.nextLine().trim().toUpperCase();
             List<Transaction> transactions = transactionService.readTransactions();
-            ReportsScreen reportsScreen = new ReportsScreen(transactions);
 
             switch (userChoice) {
-                case "A" -> {
-                    System.out.println("Showing all transactions...");
-                    for (Transaction t : transactions) {
-                        System.out.println(t);
-                    }
-                }
-                case "D" -> {
-                    System.out.println("Showing only Deposits...");
-                    for (Transaction t : transactions) {
-                        if (t.getAmount() > 0) {
-                            System.out.println(t);
-                        }
-                    }
-                }
-                case "P" -> {
-                    System.out.println("Showing only Payments...");
-                    for (Transaction t : transactions) {
-                        if (t.getAmount() < 0) {
-                            System.out.println(t);
-                        }
-                    }
-                }
-                case "R" -> reportsScreen.showReportsScreen();
-
+                case "A" -> showAllTransactions(transactions);
+                case "D" -> showDeposits(transactions);
+                case "P" -> showPayments(transactions);
+                case "R" -> new ReportsScreen(transactions).showReportsScreen();
                 case "H" -> {
-                    System.out.println("Going Home...");
+                    System.out.println("Returning to Home...");
                     onLedgerScreen = false;
                 }
                 default -> System.out.println("Invalid option. Please try again.");
-
             }
         }
+    }
+
+    private void printMenu() {
+        System.out.println("\n=== YOU ARE ON LEDGER MENU ===");
+        System.out.println("A) All Transactions");
+        System.out.println("D) Deposits Only");
+        System.out.println("P) Payments Only");
+        System.out.println("R) Reports");
+        System.out.println("H) Home");
+        System.out.print("Choose an option: ");
+    }
+
+    private void showAllTransactions(List<Transaction> transactions) {
+        printTransactionHeader("ALL TRANSACTIONS", transactions.size());
+        for (Transaction t : transactions) {
+            printTransaction(t);
+        }
+    }
+
+    private void showDeposits(List<Transaction> transactions) {
+        List<Transaction> deposits = getDeposits(transactions);
+        printTransactionHeader("DEPOSITS", deposits.size());
+        for (Transaction t : deposits) {
+            printTransaction(t);
+        }
+    }
+
+    private void showPayments(List<Transaction> transactions) {
+        List<Transaction> payments = getPayments(transactions);
+        printTransactionHeader("PAYMENTS", payments.size());
+        for (Transaction t : payments) {
+            printTransaction(t);
+        }
+    }
+
+    private List<Transaction> getDeposits(List<Transaction> transactions) {
+        List<Transaction> deposits = new ArrayList<>();
+        for (Transaction t : transactions) {
+            if (t.getAmount() > 0) {
+                deposits.add(t);
+            }
+        }
+        return deposits;
+    }
+
+    private List<Transaction> getPayments(List<Transaction> transactions) {
+        List<Transaction> payments = new ArrayList<>();
+        for (Transaction t : transactions) {
+            if (t.getAmount() < 0) {
+                payments.add(t);
+            }
+        }
+        return payments;
+    }
+
+    private void printTransactionHeader(String title, int count) {
+        System.out.printf("\n=== %s (%d entries) ===%n", title, count);
+        System.out.println("-".repeat(70));
+        System.out.printf("%-12s %-8s %-20s %-15s %12s%n",
+                "Date", "Time", "Description", "Vendor", "Amount");
+        System.out.println("-".repeat(70));
+    }
+
+    private void printTransaction(Transaction t) {
+        String time = t.getTime().contains(".")
+                ? t.getTime().substring(0, 8)
+                : t.getTime();
+
+        System.out.printf("%-12s %-8s %-20s %-15s %,12.2f%n",
+                t.getDate(),
+                time,
+                truncate(t.getDescription(), 20),
+                truncate(t.getVendor(), 15),
+                t.getAmount());
+    }
+
+    private String truncate(String text, int maxLength) {
+        if (text == null || text.length() <= maxLength) {
+            return text;
+        }
+        return text.substring(0, maxLength - 3) + "...";
     }
 }

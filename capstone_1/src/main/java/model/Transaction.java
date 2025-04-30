@@ -35,7 +35,6 @@ public class Transaction {
     }
 
 
-
     public String getDescription() {
         return this.description;
     }
@@ -87,6 +86,7 @@ public class Transaction {
                 vendor,
                 amount);
     }
+
     public String toCSV() {
         return String.join("|",
                 getDate(),
@@ -95,7 +95,6 @@ public class Transaction {
                 vendor,
                 String.valueOf(amount));
     }
-
 
 
 }
