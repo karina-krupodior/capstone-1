@@ -3,72 +3,49 @@ package model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Transaction {
-    // date       |time    |description       |vendor|amount
-    // 2023-04-15 |10:13:25|ergonomic keyboard|Amazon|-89.50
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_TIME;
-    private LocalDate date;
-    private LocalTime time;
-    private String description;
-    private String vendor;
-    private double amount;
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-    public Transaction(String date, String time, String description, String vendor, double amount) {
+    private final LocalDate date;
+    private final LocalTime time;
+    private final String description;
+    private final String vendor;
+    private final double amount;
 
-        setDate(date);
-        setTime(time);
+    public Transaction(LocalDate date, LocalTime time, String description, String vendor, double amount) {
+        this.date = date;
+        this.time = time;
         this.description = description;
         this.vendor = vendor;
         this.amount = amount;
     }
 
-
     public String getDate() {
-        return this.date.toString();
+        return date.toString(); // ISO format: YYYY-MM-DD
     }
 
-    public String getTime() {
-        return this.time.toString();
+    public String getFormattedTime() {
+        return time.format(TIME_FORMATTER); // HH:mm:ss
     }
-
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public String getVendor() {
-        return this.vendor;
+        return vendor;
     }
 
     public double getAmount() {
-        return this.amount;
+        return amount;
     }
-
-    public void setDate(String date) {
-        try {
-            this.date = LocalDate.parse(date, DATE_FORMATTER);
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid date format. Please use YYYY-MM-DD");
-        }
-    }
-
-    public void setTime(String time) {
-        try {
-            this.time = LocalTime.parse(time, TIME_FORMATTER);
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid time format. Please use HH:MM:SS");
-        }
-    }
-
 
     @Override
     public String toString() {
         return String.format("%s | %s | %s | %s | %,.2f",
                 getDate(),
-                getTime(),
+                getFormattedTime(),
                 description,
                 vendor,
                 amount);

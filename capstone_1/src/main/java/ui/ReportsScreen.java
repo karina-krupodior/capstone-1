@@ -78,7 +78,7 @@ public class ReportsScreen {
             System.out.printf("%-" + DATE_WIDTH + "s %-" + TIME_WIDTH + "s %-" +
                             DESC_WIDTH + "s %-" + VENDOR_WIDTH + "s %," + AMOUNT_WIDTH + ".2f\n",
                     t.getDate(),
-                    TextFormatter.formatTime(t.getTime()),
+                    t.getFormattedTime(),
                     TextFormatter.truncate(t.getDescription(), 20),
                     TextFormatter.truncate(t.getVendor(), 15),
                     t.getAmount());

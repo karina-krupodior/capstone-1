@@ -6,6 +6,7 @@ import service.TransactionService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import util.TextFormatter;
 
 public class LedgerScreen {
@@ -105,9 +106,9 @@ public class LedgerScreen {
 
         System.out.printf("%-12s %-8s %-20s %-15s %,12.2f%n",
                 t.getDate(),
-                TextFormatter.formatTime(t.getTime()),
-                t.getDescription(),
-                t.getVendor(),
+                t.getFormattedTime(),
+                TextFormatter.truncate(t.getDescription(), 20),
+                TextFormatter.truncate(t.getVendor(), 15),
                 t.getAmount());
     }
 
