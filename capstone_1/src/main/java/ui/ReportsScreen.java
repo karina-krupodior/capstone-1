@@ -48,14 +48,6 @@ public class ReportsScreen {
     }
 
     private void displayReport(String title, List<Transaction> transactions) {
-        // Define column widths
-        final int DATE_WIDTH = 12;
-        final int TIME_WIDTH = 10;
-        final int DESC_WIDTH = 25;
-        final int VENDOR_WIDTH = 20;
-        final int AMOUNT_WIDTH = 12;
-
-        // Print report header
         System.out.printf("\n=== %s (%d transactions) ===\n", title, transactions.size());
 
         if (transactions.isEmpty()) {
@@ -63,29 +55,25 @@ public class ReportsScreen {
             return;
         }
 
-        // Print table header
-        String header = String.format("%-" + DATE_WIDTH + "s %-" + TIME_WIDTH + "s %-" +
-                        DESC_WIDTH + "s %-" + VENDOR_WIDTH + "s %" + AMOUNT_WIDTH + "s",
-                "Date", "Time", "Description", "Vendor", "Amount");
-        String divider = "-".repeat(header.length());
-
-        System.out.println(divider);
-        System.out.println(header);
-        System.out.println(divider);
-
-        // Print transactions
+        printTableHeader();
         for (Transaction t : transactions) {
-            System.out.printf("%-" + DATE_WIDTH + "s %-" + TIME_WIDTH + "s %-" +
-                            DESC_WIDTH + "s %-" + VENDOR_WIDTH + "s %," + AMOUNT_WIDTH + ".2f\n",
-                    t.getDate(),
-                    t.getFormattedTime(),
-                    TextFormatter.truncate(t.getDescription(), 20),
-                    TextFormatter.truncate(t.getVendor(), 15),
-                    t.getAmount());
+            printTransaction(t);
         }
-
     }
 
+    private void printTableHeader() {
+        System.out.println("Date        Time     Description         Vendor             Amount");
+        System.out.println("--------------------------------------------------------------");
+    }
+
+    private void printTransaction(Transaction t) {
+        System.out.printf("%-12s %-8s %-20s %-18s %,.2f\n",
+                t.getDate(),
+                t.getFormattedTime(),
+                TextFormatter.truncate(t.getDescription(), 20),
+                TextFormatter.truncate(t.getVendor(), 18),
+                t.getAmount());
+    }
 
     private void searchByVendor() {
         System.out.print("\nEnter vendor name: ");
@@ -93,6 +81,5 @@ public class ReportsScreen {
         List<Transaction> results = reportService.getByVendor(vendor);
         displayReport("Vendor: " + vendor, results);
     }
-
 
 }
