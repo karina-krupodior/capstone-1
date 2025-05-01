@@ -63,19 +63,6 @@ public class Transaction {
         }
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
-
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-
-    }
 
     @Override
     public String toString() {
@@ -86,15 +73,4 @@ public class Transaction {
                 vendor,
                 amount);
     }
-
-    public String toCSV() {
-        return String.join("|",
-                getDate(),
-                getTime(),
-                description,
-                vendor,
-                String.valueOf(amount));
-    }
-
-
 }

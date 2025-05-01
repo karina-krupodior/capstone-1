@@ -6,6 +6,7 @@ import service.TransactionService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import util.TextFormatter;
 
 public class LedgerScreen {
     private final Scanner scanner;
@@ -69,6 +70,7 @@ public class LedgerScreen {
         for (Transaction t : payments) {
             printTransaction(t);
         }
+
     }
 
     private List<Transaction> getDeposits(List<Transaction> transactions) {
@@ -100,22 +102,13 @@ public class LedgerScreen {
     }
 
     private void printTransaction(Transaction t) {
-        String time = t.getTime().contains(".")
-                ? t.getTime().substring(0, 8)
-                : t.getTime();
 
         System.out.printf("%-12s %-8s %-20s %-15s %,12.2f%n",
                 t.getDate(),
-                time,
-                truncate(t.getDescription(), 20),
-                truncate(t.getVendor(), 15),
+                TextFormatter.formatTime(t.getTime()),
+                t.getDescription(),
+                t.getVendor(),
                 t.getAmount());
     }
 
-    private String truncate(String text, int maxLength) {
-        if (text == null || text.length() <= maxLength) {
-            return text;
-        }
-        return text.substring(0, maxLength - 3) + "...";
-    }
 }

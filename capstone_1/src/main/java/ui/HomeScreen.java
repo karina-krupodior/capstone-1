@@ -32,12 +32,12 @@ public class HomeScreen {
             switch (userChoice) {
                 case "D" -> {
                     System.out.println("Add Deposit");
-                    System.out.println("Enter product name");
+                    System.out.println("Enter product name: ");
                     String description = scanner.nextLine();
-                    System.out.println("Enter vendor  name");
+                    System.out.println("Enter vendor  name: ");
                     String vendor = scanner.nextLine();
-                    System.out.println("Enter an amount of product");
-                    Double amount = Double.parseDouble(scanner.nextLine());
+                    System.out.println("Enter an amount of product: ");
+                    double amount = Double.parseDouble(scanner.nextLine());
 
                     String date = java.time.LocalDate.now().toString();
                     String time = java.time.LocalTime.now().toString();
@@ -49,12 +49,12 @@ public class HomeScreen {
                 }
                 case "P" -> {
                     System.out.println("Make Payment (Debit)");
-                    System.out.print("Enter description of your product");
+                    System.out.print("Enter description of your product: ");
                     String description = scanner.nextLine();
                     System.out.println("Enter vendor name");
                     String vendor = scanner.nextLine();
                     System.out.println("Enter amount you wanna pay for this product");
-                    Double amount = Double.parseDouble(scanner.nextLine());
+                    double amount = Double.parseDouble(scanner.nextLine());
                     amount = -Math.abs(amount);
                     String date = java.time.LocalDate.now().toString();
                     String time = java.time.LocalTime.now().toString();

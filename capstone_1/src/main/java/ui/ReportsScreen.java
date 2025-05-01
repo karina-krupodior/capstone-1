@@ -2,7 +2,10 @@ package ui;
 
 import model.Transaction;
 import service.ReportService;
+
 import java.util.*;
+
+import util.TextFormatter;
 
 public class ReportsScreen {
     private final Scanner scanner;
@@ -13,7 +16,7 @@ public class ReportsScreen {
         this.reportService = new ReportService(transactions);
     }
 
-    public void showReportsScreen () {
+    public void showReportsScreen() {
         boolean onReportsPage = true;
         while (onReportsPage) {
             printMenu();
@@ -25,7 +28,9 @@ public class ReportsScreen {
                 case "3" -> displayReport("Year To Date", reportService.getYearToDate());
                 case "4" -> displayReport("Previous Year", reportService.getPreviousYear());
                 case "5" -> searchByVendor();
-                case "0" -> { onReportsPage = false; }
+                case "0" -> {
+                    onReportsPage = false;
+                }
                 default -> System.out.println("Invalid option. Please try again.");
             }
         }
@@ -73,9 +78,9 @@ public class ReportsScreen {
             System.out.printf("%-" + DATE_WIDTH + "s %-" + TIME_WIDTH + "s %-" +
                             DESC_WIDTH + "s %-" + VENDOR_WIDTH + "s %," + AMOUNT_WIDTH + ".2f\n",
                     t.getDate(),
-                    t.getTime(),
-                    t.getDescription(),
-                    t.getVendor(),
+                    TextFormatter.formatTime(t.getTime()),
+                    TextFormatter.truncate(t.getDescription(), 20),
+                    TextFormatter.truncate(t.getVendor(), 15),
                     t.getAmount());
         }
 
