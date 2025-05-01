@@ -13,25 +13,19 @@ Transactions are saved in a **transactions.csv** format for easy access and port
 ---
 
 ## 🛠️ **Features**
-
+### 🏠 Home Screen
 - **💰 Add Transaction(HomeScreen)**
-    - Users can record transactions as either deposits or payments (debits).
-
-  ### 🏠 Home Screen
+- Users can record transactions as either deposits or payments (debits).
   Here is a screenshot of the home screen of the application:
   ![Home Screen](assets/home_screen.png)
 
-- **📊 Transaction Reports(ReportsScreen)**
-    - Users can generate detailed reports to track financial activities over various time periods.
-
-  ### 🏠 Reports Screen
+### 📊 Transaction Reports (Reports Screen)
+- Users can generate detailed reports to track financial activities over various time periods.
   Here is a screenshot of the Reports Screen of the application:
   ![Reports Screen](assets/reports_screen.png)
 
 - **🔍 Filtering(LedgerScreen)**
     - Users can filter transactions to quickly view specific data.
-
-  ### 🏠 Ledger Screen
   Here is a screenshot of the Ledger Screen of the application:
   ![Ledger Screen](assets/ledger_screen.png)
 
@@ -237,6 +231,7 @@ For any questions or feedback, feel free to reach out to the maintainers via ema
 
 - Special thanks to the open-source community for their invaluable contributions.
 - This project was developed as part of a personal initiative by [Karina].
+- Thanks to David for the challenge and great resources, teaching, explaining, and especially for the dad jokes!
 
 ---
 
