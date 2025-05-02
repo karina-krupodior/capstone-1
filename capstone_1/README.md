@@ -8,7 +8,7 @@ designed to help users track and manage financial transactions for both business
 The application allows you to easily record deposits and payments, view detailed reports,
 and manage your transaction data over different time periods
 
-Transactions are saved in a **transactions.csv** format for easy access and portability.
+Transactions are saved in a **transactions.csv** format for easy access.
 
 ---
 
@@ -129,7 +129,7 @@ You can also filter transactions by type:
 You can filter transactions by a specific supplier:
 
 ```java
-List<Transaction> supplierTransactions = transactionService.getTransactionsBySupplier("Supplier A");
+List<Transaction> supplierTransactions = transactionService.getByVendor("Vendor A");
 ```
 
 ---
@@ -231,8 +231,7 @@ For any questions or feedback, feel free to reach out to the maintainers via ema
 
 ## 🙏 **Acknowledgements**
 
-- Special thanks to the open-source community for their invaluable contributions.
-- This project was developed as part of a personal initiative by [Karina].
+- This project was developed as part of a personal initiative by [Karyna Krupodor].
 - Thanks to David for the challenge and great resources, teaching, explaining, and especially for the dad jokes!
 
 ---
