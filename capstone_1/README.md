@@ -231,14 +231,14 @@ For any questions or feedback, feel free to reach out to the maintainers via ema
 
 ## 🙏 **Acknowledgements**
 
-- This project was developed as part of a personal initiative by [Karyna Krupodor].
-- Thanks to David for the challenge and great resources, teaching, explaining, and especially for the dad jokes!
+- This project was developed for personal use by [Karyna Krupodor].
+- Special thanks to David for providing the challenge, valuable resources, clear explanations,
+- and — of course — the jokes that kept things fun!
 
 ---
 
 ## 🌱 **Best Practices Followed**
 
-- **Clear and structured documentation** to enhance user and developer experience.
 - **Modular project structure** for maintainability.
 - **Separation of concerns**: The business logic, model, and UI are in separate packages for clarity.
 - **Meaningful variable and method names** for easy understanding of the code.
