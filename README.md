@@ -17,19 +17,19 @@ Transactions are saved in a **transactions.csv** format for easy access.
 - **💰 Add Transaction**
 - Users can record transactions as either deposits or payments (debits).
 - Here is a screenshot of the home screen of the application:
-![Home Screen](assets/home_screen.png)
+![Home Screen](capstone_1/assets/home_screen.png)
 
 ### 🔍 LedgerScreen
 - **💰 View transactions**
 - Users can filter transactions to quickly view specific data.
 - Here is a screenshot of the Ledger Screen of the application:
-![Ledger Screen](assets/ledger_screen.png)
+![Ledger Screen](capstone_1/assets/ledger_screen.png)
 
 ### 📊 Reports Screen
 - **💰 Transaction Reports**
 - Users can generate detailed reports to track financial activities over various time periods.
 - Here is a screenshot of the Reports Screen of the application:
-![Reports Screen](assets/reports_screen.png)
+![Reports Screen](capstone_1/assets/reports_screen.png)
 
 
 ## 💻 **Technologies Used**
